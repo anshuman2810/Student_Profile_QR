@@ -1,4 +1,6 @@
 const Student = require("../models/student.model");
+const generateQR = require("../services/qr.service");
+const { sendServerError } = require("../utils/error");
 
 
 /*
@@ -30,10 +32,11 @@ exports.getAcademicYears = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({
-            message: "Server error"
-        });
-
+        return sendServerError(
+            res,
+            "STUDENT_GET_YEARS",
+            error
+        );
     }
 
 };
@@ -53,7 +56,8 @@ exports.getStudentByYear = async (req, res) => {
 
         const { id, year } = req.params;
 
-        const student = await Student.findById(id);
+        const student = await Student.findById(id)
+            .populate("assignedTeacher", "name");
 
         if (!student)
             return res.status(404).json({
@@ -73,16 +77,26 @@ exports.getStudentByYear = async (req, res) => {
         res.json({
             name: student.name,
             enrollmentNumber: student.enrollmentNumber,
+            rollNumber: student.rollNumber,
+            phoneNumber: student.phoneNumber,
             profileImage: student.profileImage,
+            className: student.className,
+            section: student.section,
+            assignedTeacherName:
+                student.assignedTeacher?.name || "-",
+            qrCode:
+                student.qrCode ||
+                await generateQR(student._id),
             academicYear: academicYearData
         });
 
     } catch (error) {
 
-        res.status(500).json({
-            message: "Server error"
-        });
-
+        return sendServerError(
+            res,
+            "STUDENT_GET_BY_YEAR",
+            error
+        );
     }
 
 };
@@ -102,7 +116,7 @@ exports.getLatestAcademicYear = async (req, res) => {
 
         const student = await Student.findById(
             req.params.id
-        );
+        ).populate("assignedTeacher", "name");
 
         if (!student)
             return res.status(404).json({
@@ -122,16 +136,26 @@ exports.getLatestAcademicYear = async (req, res) => {
         res.json({
             name: student.name,
             enrollmentNumber: student.enrollmentNumber,
+            rollNumber: student.rollNumber,
+            phoneNumber: student.phoneNumber,
             profileImage: student.profileImage,
+            className: student.className,
+            section: student.section,
+            assignedTeacherName:
+                student.assignedTeacher?.name || "-",
+            qrCode:
+                student.qrCode ||
+                await generateQR(student._id),
             academicYear: latestYear
         });
 
     } catch (error) {
 
-        res.status(500).json({
-            message: "Server error"
-        });
-
+        return sendServerError(
+            res,
+            "STUDENT_GET_LATEST",
+            error
+        );
     }
 
 };

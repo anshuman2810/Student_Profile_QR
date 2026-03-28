@@ -11,6 +11,70 @@ require("../middleware/role.middleware");
 
 
 router.post(
+    "/student",
+    auth,
+    role("teacher"),
+    teacherController.createStudent
+);
+
+
+router.get(
+    "/profile",
+    auth,
+    role("teacher"),
+    teacherController.getProfile
+);
+
+
+router.put(
+    "/profile-image",
+    auth,
+    role("teacher"),
+    teacherController.updateProfileImage
+);
+
+
+router.delete(
+    "/student/:id",
+    auth,
+    role("teacher"),
+    teacherController.deleteStudent
+);
+
+
+router.get(
+    "/student/:id",
+    auth,
+    role("teacher"),
+    teacherController.getStudent
+);
+
+
+router.put(
+    "/student/:id/profile-image",
+    auth,
+    role("teacher"),
+    teacherController.updateStudentProfileImage
+);
+
+
+router.get(
+    "/classrooms",
+    auth,
+    role("teacher"),
+    teacherController.getClassroomSummary
+);
+
+
+router.post(
+    "/attendance/bulk",
+    auth,
+    role("teacher"),
+    teacherController.bulkUpdateAttendance
+);
+
+
+router.post(
     "/add-year/:id",
     auth,
     role("teacher"),

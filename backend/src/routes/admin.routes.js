@@ -24,4 +24,25 @@ router.post(
     adminController.createStudent
 );
 
+router.get(
+    "/teachers",
+    auth,
+    role("admin"),
+    adminController.getTeachers
+);
+
+router.get(
+    "/students",
+    auth,
+    role("admin"),
+    adminController.getStudents
+);
+
+router.get(
+    "/overview",
+    auth,
+    role("admin"),
+    adminController.getOverview
+);
+
 module.exports = router;

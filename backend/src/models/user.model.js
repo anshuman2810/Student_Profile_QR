@@ -10,12 +10,16 @@ const userSchema = new mongoose.Schema(
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        lowercase: true,
+        trim: true,
+        index: true
     },
 
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
 
     role: {
@@ -23,6 +27,8 @@ const userSchema = new mongoose.Schema(
         enum: ["admin", "teacher"],
         required: true
     },
+
+    profileImage: String,
 
     assignedStudents: [
         {
@@ -33,5 +39,7 @@ const userSchema = new mongoose.Schema(
 },
 { timestamps: true }
 );
+
+userSchema.index({ role: 1, createdAt: -1 });
 
 module.exports = mongoose.model("User", userSchema);
