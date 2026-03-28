@@ -1,1 +1,198 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Trebuchet MS", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --app-bg: radial-gradient(circle at top, #e0f2fe 0%, #f8fafc 35%, #e2e8f0 100%);
+  --panel-bg: rgba(255, 255, 255, 0.8);
+  --card-bg: #ffffff;
+  --muted-bg: #f1f5f9;
+  --border-color: rgba(148, 163, 184, 0.3);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+}
+
+:root[data-theme="dark"] {
+  --app-bg: radial-gradient(circle at top, #0f172a 0%, #111827 35%, #020617 100%);
+  --panel-bg: rgba(15, 23, 42, 0.82);
+  --card-bg: #0f172a;
+  --muted-bg: #1e293b;
+  --border-color: rgba(100, 116, 139, 0.35);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-app {
+  background: var(--app-bg);
+}
+
+.bg-panel {
+  background: var(--panel-bg);
+}
+
+.bg-card {
+  background: var(--card-bg);
+}
+
+.bg-muted {
+  background: var(--muted-bg);
+}
+
+.border-app {
+  border-color: var(--border-color);
+}
+
+.text-app {
+  color: var(--text-primary);
+}
+
+.text-app-secondary {
+  color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .bg-white {
+  background: var(--card-bg) !important;
+}
+
+:root[data-theme="dark"] .bg-slate-50,
+:root[data-theme="dark"] .bg-slate-100 {
+  background: var(--muted-bg) !important;
+}
+
+:root[data-theme="dark"] .border-slate-200,
+:root[data-theme="dark"] .border-white {
+  border-color: var(--border-color) !important;
+}
+
+:root[data-theme="dark"] .text-slate-950,
+:root[data-theme="dark"] .text-slate-900,
+:root[data-theme="dark"] .text-slate-800,
+:root[data-theme="dark"] .text-slate-700 {
+  color: var(--text-primary) !important;
+}
+
+:root[data-theme="dark"] .text-slate-600,
+:root[data-theme="dark"] .text-slate-500 {
+  color: var(--text-secondary) !important;
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .bg-cyan-50,
+:root[data-theme="dark"] .bg-cyan-50\/70 {
+  background: rgba(8, 145, 178, 0.16) !important;
+}
+
+:root[data-theme="dark"] .ring-slate-100 {
+  --tw-ring-color: rgba(100, 116, 139, 0.35) !important;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: #fff;
+    color: #0f172a !important;
+  }
+
+  #root {
+    min-height: auto;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .student-print-page {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .student-print-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #0f172a !important;
+    background: #fff !important;
+  }
+
+  .student-print-sheet * {
+    color: inherit !important;
+  }
+
+  .student-print-sheet .bg-slate-950 {
+    background: #e2e8f0 !important;
+  }
+
+  .student-print-sheet .bg-white,
+  .student-print-sheet .bg-slate-50,
+  .student-print-sheet .bg-muted {
+    background: #fff !important;
+  }
+
+  .student-print-sheet .border-slate-200,
+  .student-print-sheet .border-app {
+    border-color: #cbd5e1 !important;
+  }
+
+  .student-print-header {
+    padding: 12px !important;
+    border: 1px solid #cbd5e1 !important;
+    background: #f8fafc !important;
+  }
+
+  .student-print-header-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: start !important;
+    gap: 12px !important;
+  }
+
+  .student-print-header-details {
+    min-width: 0 !important;
+  }
+
+  .student-print-header-media {
+    display: grid !important;
+    grid-template-columns: auto auto !important;
+    gap: 8px !important;
+    align-items: start !important;
+  }
+
+  .student-print-profile-image,
+  .student-print-qr-image {
+    width: 86px !important;
+    height: 86px !important;
+  }
+}
